@@ -6,7 +6,7 @@
 #    By: abisani <abisani@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 16:38:03 by abisani           #+#    #+#              #
-#    Updated: 2025/12/10 10:42:38 by abisani          ###   ########.fr        #
+#    Updated: 2025/12/10 10:54:06 by abisani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC = cc
 CFLAGS = -g -Wall -Werror -Wextra
 
 NAME = fractol
-TEST_NAME = fractol_test
+TEST_NAME = test
 
 SRC_DIR = src
 MAIN_FILES = main.c
@@ -43,7 +43,7 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $^ -Lminilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME)
 
 %.o: %.c $(SRC_DIR)/fractol.h
-	$(CC) $(CFLAGS) -Iminilibx-linux -c $< -o $@
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 	rm -f $(OBJ) $(TEST_OBJ)
