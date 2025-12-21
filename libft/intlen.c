@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_p.c                                          :+:      :+:    :+:   */
+/*   intlen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abisiani <abisiani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 12:16:33 by abisiani          #+#    #+#             */
-/*   Updated: 2025/09/16 12:14:10 by abisiani         ###   ########.fr       */
+/*   Created: 2025/07/16 15:30:02 by abisiani          #+#    #+#             */
+/*   Updated: 2025/09/16 12:43:45 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	print_p(void *p)
+int	intlen(int n)
 {
-	int		i;
-	int		len;
-	int		started;
+	int	count;
 
-	i = sizeof(size_t) * 2 - 1;
-	len = 2;
-	started = 0;
-	if ((size_t)p == 0)
+	count = 0;
+	if (n < 0 || n == 0)
+		count++;
+	while (n)
 	{
-		write(1, "(nil)", 5);
-		return (5);
+		n /= 10;
+		count++;
 	}
-	write(1, "0x", 2);
-	while (i >= 0)
+	return (count);
+}
+
+int	uintlen(unsigned int n)
+{
+	int	count;
+
+	count = 0;
+	if (n == 0)
+		count++;
+	while (n)
 	{
-		if (started || "0123456789abcdef"[((size_t)p >> (i * 4)) & 0xF] != '0')
-		{
-			write(1, &"0123456789abcdef"[((size_t)p >> (i * 4)) & 0xF], 1);
-			len++;
-			started = 1;
-		}
-		i--;
+		n /= 10;
+		count++;
 	}
-	return (len);
+	return (count);
 }

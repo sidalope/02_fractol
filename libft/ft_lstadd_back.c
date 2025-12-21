@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_s.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abisiani <abisiani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 11:52:38 by abisiani          #+#    #+#             */
-/*   Updated: 2025/09/17 20:45:30 by abisiani         ###   ########.fr       */
+/*   Created: 2025/06/05 12:52:40 by abisiani          #+#    #+#             */
+/*   Updated: 2025/06/06 01:06:00 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	print_s(char *s)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int		len;
-
-	len = 0;
-	if (s == NULL)
-		return (write(1, "(null)", 6));
-	while (*s)
-		len += write(1, s++, 1);
-	return (len);
+	if (!*lst)
+		*lst = new;
+	else
+		ft_lstlast(*lst)->next = new;
 }

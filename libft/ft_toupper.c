@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_unsnbr_fd.c                                    :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abisiani <abisiani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:05:40 by abisiani          #+#    #+#             */
-/*   Updated: 2025/09/16 12:48:24 by abisiani         ###   ########.fr       */
+/*   Created: 2025/05/12 17:49:02 by abisiani          #+#    #+#             */
+/*   Updated: 2025/06/05 10:57:46 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	put_unsnbr_fd(unsigned int n, int fd)
+int	ft_toupper(int c)
 {
-	unsigned int	num;
-
-	num = 0;
-	if (n > 9)
-		put_unsnbr_fd(n / 10, fd);
-	num = n % 10 + '0';
-	write(fd, &num, 1);
+	if (c >= 'a' && c <= 'z')
+		return (c & ~32);
+	return (c);
 }

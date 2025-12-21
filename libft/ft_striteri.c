@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_x.c                                          :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abisiani <abisiani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 16:53:29 by abisiani          #+#    #+#             */
-/*   Updated: 2025/07/16 18:27:57 by abisiani         ###   ########.fr       */
+/*   Created: 2025/05/29 16:06:48 by abisiani          #+#    #+#             */
+/*   Updated: 2025/06/10 22:16:24 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-int	print_x(unsigned int n)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	int		i;
-	int		len;
-	int		started;
 
-	i = sizeof(unsigned int) * 2 - 1;
-	len = 0;
-	started = 0;
-	if (n == 0)
+	i = 0;
+	if (!f)
+		return ;
+	while (s[i])
 	{
-		write(1, "0", 1);
-		return (1);
+		f(i, &s[i]);
+		i++;
 	}
-	while (i >= 0)
-	{
-		if (started || "0123456789abcdef"[(n >> (i * 4)) & 0xF] != '0')
-		{
-			write(1, &"0123456789abcdef"[(n >> (i * 4)) & 0xF], 1);
-			len++;
-			started = 1;
-		}
-		i--;
-	}
-	return (len);
 }

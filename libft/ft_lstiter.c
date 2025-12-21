@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_c.c                                          :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abisani <abisani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abisiani <abisiani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/11 17:05:34 by abisiani          #+#    #+#             */
-/*   Updated: 2025/10/03 15:17:19 by abisani          ###   ########.fr       */
+/*   Created: 2025/06/05 13:53:10 by abisiani          #+#    #+#             */
+/*   Updated: 2025/06/06 00:14:51 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	print_c(int c)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	write(1, &c, 1);
-	return (1);
+	if (!lst)
+		return ;
+	while (lst->next)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
+	f(lst->content);
 }

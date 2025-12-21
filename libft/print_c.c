@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_u.c                                          :+:      :+:    :+:   */
+/*   print_c.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abisiani <abisiani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 15:16:44 by abisiani          #+#    #+#             */
-/*   Updated: 2025/09/16 12:44:01 by abisiani         ###   ########.fr       */
+/*   Created: 2025/07/11 17:05:34 by abisiani          #+#    #+#             */
+/*   Updated: 2025/09/15 11:09:17 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	print_u(unsigned int n)
+int	print_c(int c)
 {
-	int	len;
-
-	len = uintlen(n);
-	put_unsnbr_fd(n, 1);
-	return (len);
+	ft_putchar_fd(c, 1);
+	return (1);
 }

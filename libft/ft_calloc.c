@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abisani <abisani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 16:07:36 by abisiani          #+#    #+#             */
-/*   Updated: 2025/10/03 15:05:29 by abisani          ###   ########.fr       */
+/*   Created: 2025/05/22 22:28:38 by abisiani          #+#    #+#             */
+/*   Updated: 2025/09/06 16:26:32 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int	num;
+	unsigned char	*ptr;
+	unsigned char	*ptr_tmp;
+	size_t			total;
 
-	num = 0;
-	if (n == -2147483648)
+	if (nmemb && size > SIZE_MAX / nmemb)
+		return (NULL);
+	total = nmemb * size;
+	ptr = malloc(total);
+	if (!ptr)
+		return (NULL);
+	ptr_tmp = ptr;
+	if (total)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		while (total--)
+			*ptr_tmp++ = 0;
 	}
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n *= -1;
-	}
-	if (n > 9)
-		ft_putnbr_fd(n / 10, fd);
-	num = n % 10 + '0';
-	write(fd, &num, 1);
+	return (ptr);
 }

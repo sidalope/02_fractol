@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abisani <abisani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:22:57 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/10 10:32:27 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/22 00:44:44 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,72 +14,69 @@
 
 /**
 - The mlx_key_hook (and other hooks) pass void *param to their respective 
-	- handler, so param prob needs to be a struct when passing multiple arguments.
-	- mlx_loop_hook is called when no event occurrs.
+	handler, so param prob needs to be a struct when passing multiple 
+	arguments.
+- mlx_loop_hook is called when no event occurrs (useful for rerendering on zoom?)
 - Separate mlx, window, and image
 
 -Init
 - create window
-- initiate loop (now to enable closing the window, probably)
-	listen for close clicks, resizes(?), zooms
 - create image
 - write to image
 - dump image to window
+- add hooks
+- initiate loop (now to enable closing the window, probably)
+	listen for close clicks, resizes(?), zooms
 
 ! Remember to check for pointer creation success and
 	clean up all pointers. Likely everything is malloced for.
 */
 
-# include <stdio.h>
-
-typedef struct s_img_data
+void	clean_up(t_data *data)
 {
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			line_len;
-	int			endian;
-}				t_img_data;
-
-void	put_pixel(t_img_data *data, int x, int y, int color)
-{
-	char	*dest;
-
-	dest = data->addr + (y * data->line_len + x * (data->bpp / 8));
-	*(unsigned int *)dest = color;
+	if (!data)
+		return ;
+	if (data->img)
+		mlx_destroy_image(data->mlx, data->img);
+	if (data->window)
+		mlx_destroy_window(data->mlx, data->window);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
 }
 
-int	main(void)
+int	exit_success(void *param)
 {
-	void		*mlx;
-	void		*window;
-	t_img_data	img;
-	double			x;
-	double			y;
-	double			v;
-	double			n;
-	// t_img_data	tmp_img;
-	
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	// tmp_img.img = mlx_new_image(mlx, 1920, 1080);
-	img.img = mlx_new_image(mlx, 1920, 1080);
-	// tmp_img.img = mlx_get_data_addr(img.img, &img.bpp,\&img.line_len, &img.endian);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
-	for (double i = 0; i<361; i+= 0.1)
-	{
-		printf("1");
-		v = 300 * sin(i);
-		n = 300 * cos(i);
-		for (int ii = 0; ii<361; ii++)
-		{
-			printf("0");
-			x = 30 * sin(ii);
-			y = 30 * cos(ii);
-			put_pixel(&img, x + v + 500.0, y + n + 500.0, 0x00FF0000 * x);
-		}
-	}
-	printf("HELLO");
-	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
-	mlx_loop(mlx);
+	t_data	*data;
+
+	data = (t_data *)param;
+	clean_up(data);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+void	error_out(char *err_msg, t_data *data)
+{
+	ft_printf("%s", err_msg);
+	clean_up(data);
+	exit(EXIT_FAILURE);
+}
+
+// Resizing; redraw the whole window? What?
+int	main(int argc, char *argv[])
+{
+	t_data			data;
+
+	init_clean(&data);
+	if (argc == 1)
+		error_out("Try ./fractol [1, 2, mandlebrot or julia]\n", &data);
+	init(&data, argc, argv);
+	render(&data);
+	mlx_put_image_to_window(data.mlx, data.window, data.img, 0, 0);
+	mlx_hook(data.window, 17, 1L << 17, exit_success, NULL);
+	mlx_key_hook(data.window, key_press, &data);
+	mlx_mouse_hook(data.window, mouse_press, &data);
+	mlx_loop(data.mlx);
 }

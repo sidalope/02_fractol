@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_X.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abisiani <abisiani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/16 17:52:43 by abisiani          #+#    #+#             */
-/*   Updated: 2025/07/16 18:29:46 by abisiani         ###   ########.fr       */
+/*   Created: 2025/05/29 16:07:36 by abisiani          #+#    #+#             */
+/*   Updated: 2025/06/10 21:35:04 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	print_x_cap(unsigned int n)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		i;
-	int		len;
-	int		started;
+	int	num;
 
-	i = sizeof(unsigned int) * 2 - 1;
-	len = 0;
-	started = 0;
-	if (n == 0)
+	num = 0;
+	if (n == -2147483648)
 	{
-		write(1, "0", 1);
-		return (1);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	while (i >= 0)
+	if (n < 0)
 	{
-		if (started || "0123456789ABCDEF"[(n >> (i * 4)) & 0xF] != '0')
-		{
-			write(1, &"0123456789ABCDEF"[(n >> (i * 4)) & 0xF], 1);
-			len++;
-			started = 1;
-		}
-		i--;
+		write(fd, "-", 1);
+		n *= -1;
 	}
-	return (len);
+	if (n > 9)
+		ft_putnbr_fd(n / 10, fd);
+	num = n % 10 + '0';
+	write(fd, &num, 1);
 }
