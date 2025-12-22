@@ -6,11 +6,30 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:09:55 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 13:57:30 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/22 23:57:38 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+static void	move(double cr, double ci, t_data *data)
+{
+	data->max_r = data->max_r + cr;
+	data->min_r = data->min_r + cr;
+	data->max_i = data->max_i + ci;
+	data->min_i = data->min_i + ci;
+}
+
+/*
+** Zoom in by a factor of zoom.
+*/
+static void	zoom(double zoom, t_data *data)
+{
+	data->max_r = data->max_r * zoom;
+	data->min_r = data->min_r * zoom;
+	data->max_i = data->max_i * zoom;
+	data->min_i = data->min_i * zoom;
+}
 
 /*
 ** Bind Esc to exit
@@ -25,16 +44,30 @@ int	key_press(int keycode, void *param)
 		clean_up(data);
 		exit (0);
 	}
+	else if (keycode == 0xff51)
+		move(-0.1, 0, data);
+	else if (keycode == 0xff52)
+		move(0, 0.1, data);
+	else if (keycode == 0xff53)
+		move(0.1, 0, data);
+	else if (keycode == 0xff54)
+		move(0, -0.1, data);
+	render(data);
 	return (0);
 }
 
-// 1 and 3 are left and right
-// 4 and 5 are zoom in and out
+// TODO: This zoom function will eventually slow down to nothing. Right?
 int	mouse_press(int button, int x, int y, void *param)
 {
+	t_data	*data;
+
+	data = (t_data *)param;
 	(void)x;
 	(void)y;
-	(void)param;
-	ft_printf("\n:%i:\n", button);
+	if (button == 4)
+		zoom(0.95, data);
+	if (button == 5)
+		zoom(1.05, data);
+	render(data);
 	return (0);
 }

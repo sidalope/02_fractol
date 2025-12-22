@@ -6,24 +6,28 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:13:35 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 13:56:53 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/22 23:59:59 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void	skip_whitespace(char *str, int *neg_factor)
+static int	skip_whitespace(char *str, int *neg_factor)
 {
-	while (*str == ' ' || *str == '\n' || *str == '\t'
-		|| *str == '\v' || *str == '\f' || *str == '\r')
-		str++;
-	if (*str == '-')
+	int		i;
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-')
 	{
 		*neg_factor = -1;
-		str++;
+		i++;
 	}
-	else if (*str == '+')
-		str++;
+	else if (str[i] == '+')
+		i++;
+	return (i);
 }
 
 static double	ft_atod(char *str)
@@ -35,7 +39,7 @@ static double	ft_atod(char *str)
 	res = 0.0;
 	div = 10;
 	negative = 1;
-	skip_whitespace(str, &negative);
+	str += skip_whitespace(str, &negative);
 	while (*str && *str >= '0' && *str <= '9' && *str != '.')
 	{
 		res = res * 10 + *str - '0';
@@ -99,8 +103,8 @@ void	init(t_data *data, int argc, char *argv[])
 		data->ki = ft_atod(argv[3]);
 		if (data->kr > 2 || data->ki > 2)
 		{
-			ft_printf("kr: %s and ki: %s should both be < 2. Try 0.285 0.01\n",
-				argv[2], argv[3]);
+			ft_printf("kr: %f and ki: %f should both be < 2. Try 0.285 0.01\n",
+				data->kr, data->ki);
 			error_out("", data);
 		}
 	}
