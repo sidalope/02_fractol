@@ -76,6 +76,5 @@ Different `c` values produce dramatically different Julia sets.
 - [Complex Numbers - MathIsFun](https://www.mathsisfun.com/algebra/complex-number-multiply.html)
 - ["The Mandelbrot Set - Numberphile" - youtube](https://www.youtube.com/watch?v=NGMRB4O922I&list=PLt5AfwLFPxWJ8GCgpFo5_OSyfl7j0nOiu)
 - [The Mandelbrot Set - povusers.org](http://warp.povusers.org/Mandelbrot/)
-ttps://en.wikipedia.org/wiki/Complex_number)
 - [MiniLibX Documentation](https://harm-smits.github.io/42docs/libs/minilibx)
 - [The Mandelbrot Set - complex-analysis.com](https://complex-analysis.com/content/mandelbrot_set.html)
