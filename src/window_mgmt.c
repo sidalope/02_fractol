@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:09:55 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/21 23:40:38 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/22 13:57:30 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	key_press(int keycode, void *param)
 	t_data		*data;
 
 	data = (t_data *) param;
-	(void)data;
 	if (keycode == 0xff1b)
 	{
 		clean_up(data);
