@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:09:55 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 23:57:38 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 00:20:18 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,25 @@ static void	zoom(double zoom, t_data *data)
 int	key_press(int keycode, void *param)
 {
 	t_data		*data;
+	double		r_tenth;
+	double		i_tenth;
 
 	data = (t_data *) param;
+	r_tenth = (data->max_r - data->min_r) / 10;
+	i_tenth = (data->max_i - data->min_i) / 10;
 	if (keycode == 0xff1b)
 	{
 		clean_up(data);
 		exit (0);
 	}
 	else if (keycode == 0xff51)
-		move(-0.1, 0, data);
+		move(-r_tenth, 0, data);
 	else if (keycode == 0xff52)
-		move(0, 0.1, data);
+		move(0, i_tenth, data);
 	else if (keycode == 0xff53)
-		move(0.1, 0, data);
+		move(r_tenth, 0, data);
 	else if (keycode == 0xff54)
-		move(0, -0.1, data);
+		move(0, -i_tenth, data);
 	render(data);
 	return (0);
 }
