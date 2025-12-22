@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 23:18:20 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 00:44:35 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/22 22:55:34 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 # define WIDTH 1200
 # define HEIGHT 900
-# define MAX_ITERATIONS 100
-# define COLOR 0x999999
+# define MAX_ITERATIONS 50
+# define COLOUR 0x00F0cfff
 
 // remember line_len is in bits
 typedef struct s_data

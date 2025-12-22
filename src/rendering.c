@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 23:04:33 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 00:53:12 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/22 22:55:31 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	render(t_data *data)
 
 	x = 0;
 	y = 0;
+	mlx_clear_window(data->mlx, data->window);
 	while (y < HEIGHT)
 	{
 		ci = data->max_i - (y * (data->max_i - data->min_i) / (HEIGHT - 1));
@@ -57,7 +58,7 @@ void	render(t_data *data)
 			if (iter == MAX_ITERATIONS)
 				put_pixel(data, x, y, 0x00000000);
 			else
-				put_pixel(data, x, y, 0x00F00000 + iter);
+				put_pixel(data, x, y, COLOUR * iter);
 			x++;
 		}
 		y++;
