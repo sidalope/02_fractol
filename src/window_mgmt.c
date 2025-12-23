@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:09:55 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 02:42:39 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 14:17:54 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,25 @@ static void	zoom(double zoom, t_data *data)
 int	key_press(int keycode, void *param)
 {
 	t_data		*data;
-	double		r_tenth;
-	double		i_tenth;
+	double		r_five_perc;
+	double		i_five_perc;
 
 	data = (t_data *) param;
-	r_tenth = (data->max_r - data->min_r) / 10;
-	i_tenth = (data->max_i - data->min_i) / 10;
+	r_five_perc = (data->max_r - data->min_r) / 20;
+	i_five_perc = (data->max_i - data->min_i) / 20;
 	if (keycode == 0xff1b)
 	{
 		clean_up(data);
 		exit (0);
 	}
 	else if (keycode == 0xff51)
-		move(-r_tenth, 0, data);
+		move(-r_five_perc, 0, data);
 	else if (keycode == 0xff52)
-		move(0, i_tenth, data);
+		move(0, i_five_perc, data);
 	else if (keycode == 0xff53)
-		move(r_tenth, 0, data);
+		move(r_five_perc, 0, data);
 	else if (keycode == 0xff54)
-		move(0, -i_tenth, data);
+		move(0, -i_five_perc, data);
 	data->render = 1;
 	return (0);
 }
