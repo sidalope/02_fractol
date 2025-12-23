@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 23:04:33 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 02:38:44 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 14:13:49 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	render(t_data *data)
 			if (iter == MAX_ITERATIONS)
 				put_pixel(data, x, y, 0x00000000);
 			else
-				put_pixel(data, x, y, COLOUR * iter);
+				put_pixel(data, x, y, data->colour * iter);
 		}
 	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img, 0, 0);

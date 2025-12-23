@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:22:57 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 12:49:19 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 13:57:32 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int	main(int argc, char *argv[])
 	t_data			data;
 
 	init_clean(&data);
-	if (argc == 2 || argc == 4)
+	if (argc >= 2 && argc <= 5)
 		init(&data, argc, argv);
 	else
-		error_out("Try ./fractol [1, 2, mandlebrot or julia]\n", &data);
+		print_usage_err(&data);
 	render(&data);
 	mlx_hook(data.window, 17, 1L << 17, exit_success, &data);
 	mlx_key_hook(data.window, key_press, &data);

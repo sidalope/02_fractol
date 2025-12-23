@@ -6,7 +6,7 @@
 #    By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 16:38:03 by abisani           #+#    #+#              #
-#    Updated: 2025/12/23 01:42:57 by abisani          ###   ########.fr        #
+#    Updated: 2025/12/23 13:03:42 by abisani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFT = libft/libft.a
 
 SRC_DIR = src
 MAIN_FILES = main.c
-SRC_FILES = init.c fractals.c window_mgmt.c rendering.c ft_atof.c
+SRC_FILES = init.c fractals.c window_mgmt.c rendering.c utils.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(MAIN_FILES)) \
 		$(addprefix $(SRC_DIR)/, $(SRC_FILES))

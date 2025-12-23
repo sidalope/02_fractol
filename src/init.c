@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:13:35 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 02:41:21 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 14:11:41 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,38 @@ static void	init_mlx(t_data *data)
 	if (!data->addr)
 		error_out("Error initialising image for editing\n", data);
 	data->bpp /= 8;
+	data->min_r = -2.0;
+	data->max_r = 1.0;
+	data->min_i = -1.2;
+	data->max_i = 1.2;
+}
+
+static void	init_fractal(t_data *data, int argc, char *argv[])
+{
+	data->colour = COLOUR;
+	data->kr = 0;
+	data->ki = 0;
+	data->fractal = get_fractal(argv[1]);
+	if (data->fractal == 0)
+		print_usage_err(data);
+	else if (data->fractal == MANDELBROT)
+	{
+		if (argc == 3)
+			data->colour = parse_hex_int(argv[2]);
+		else if (argc != 2)
+			print_usage_err(data);
+	}
+	else if (data->fractal == JULIA && (argc == 4 || argc == 5))
+	{
+		data->kr = ft_atof(argv[2]);
+		data->ki = ft_atof(argv[3]);
+		if (data->kr > 2 || data->ki > 2)
+			print_usage_err(data);
+		if (argc == 5)
+			data->colour = parse_hex_int(argv[4]);
+	}
+	else if (data->fractal == JULIA)
+		print_usage_err(data);
 }
 
 /*
@@ -75,27 +107,8 @@ static void	init_mlx(t_data *data)
 */
 void	init(t_data *data, int argc, char *argv[])
 {
-	data->fractal = get_fractal(argv[1]);
-	if (data->fractal == 0)
-	{
-		ft_printf("%s is invalid. Try 1, 2, mandlebrot or julia.",
-			argv[1]);
-		error_out("", data);
-	}
-	if (data->fractal == JULIA && argc == 4)
-	{
-		data->kr = ft_atof(argv[2]);
-		data->ki = ft_atof(argv[3]);
-		if (data->kr > 2 || data->ki > 2)
-		{
-			ft_printf("kr: %f and ki: %f should both be < 2. Try 0.285 0.01\n",
-				data->kr, data->ki);
-			error_out("", data);
-		}
-	}
-	data->min_r = -2.0;
-	data->max_r = 1.0;
-	data->min_i = -1.2;
-	data->max_i = 1.2;
+	init_fractal(data, argc, argv);
+	if (data->colour == -1)
+		print_usage_err(data);
 	init_mlx(data);
 }

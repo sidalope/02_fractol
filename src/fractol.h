@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 23:18:20 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 02:40:18 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 13:53:31 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_data
 	double		kr;
 	double		ki;
 	int			render;
+	int			colour;
 }				t_data;
 
 enum e_fractals
@@ -51,6 +52,8 @@ enum e_fractals
 
 // Utils
 double	ft_atof(char *str);
+int		parse_hex_int(char *str);
+void	print_usage_err(t_data *data);
 
 // Exit and Error handling
 void	clean_up(t_data *data);
