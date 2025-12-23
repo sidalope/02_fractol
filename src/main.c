@@ -6,31 +6,11 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:22:57 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 03:06:08 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 12:49:19 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-/**
-- The mlx_key_hook (and other hooks) pass void *param to their respective 
-	handler, so param prob needs to be a struct when passing multiple 
-	arguments.
-- mlx_loop_hook is called when no event occurrs (useful for rerendering on zoom?)
-- Separate mlx, window, and image
-
--Init
-- create window
-- create image
-- write to image
-- dump image to window
-- add hooks
-- initiate loop (now to enable closing the window, probably)
-	listen for close clicks, resizes(?), zooms
-
-! Remember to check for pointer creation success and
-	clean up all pointers. Likely everything is malloced for.
-*/
 
 void	clean_up(t_data *data)
 {
@@ -77,7 +57,6 @@ static int	loop_handler(void *param)
 	return (0);
 }
 
-// Resizing; redraw the whole window? What?
 int	main(int argc, char *argv[])
 {
 	t_data			data;
