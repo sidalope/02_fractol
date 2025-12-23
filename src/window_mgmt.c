@@ -6,12 +6,16 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:09:55 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 00:20:18 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 02:42:39 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/*
+** Pan the fractal view by offset (cr, ci) in complex plane.
+** Shifts all viewport bounds by the same amount.
+*/
 static void	move(double cr, double ci, t_data *data)
 {
 	data->max_r = data->max_r + cr;
@@ -21,18 +25,32 @@ static void	move(double cr, double ci, t_data *data)
 }
 
 /*
-** Zoom in by a factor of zoom.
+** Zoom viewport by a given factor.
+** Factor < 1.0 zooms in, > 1.0 zooms out.
+** Preserves center point of current view.
 */
 static void	zoom(double zoom, t_data *data)
 {
-	data->max_r = data->max_r * zoom;
-	data->min_r = data->min_r * zoom;
-	data->max_i = data->max_i * zoom;
-	data->min_i = data->min_i * zoom;
+	double	center_r;
+	double	center_i;
+	double	new_range_r;
+	double	new_range_i;
+
+	center_r = (data->max_r + data->min_r) / 2.0;
+	center_i = (data->max_i + data->min_i) / 2.0;
+	new_range_r = ((data->max_r - data->min_r) * zoom) / 2.0;
+	new_range_i = ((data->max_i - data->min_i) * zoom) / 2.0;
+	data->max_r = center_r + new_range_r;
+	data->min_r = center_r - new_range_r;
+	data->max_i = center_i + new_range_i;
+	data->min_i = center_i - new_range_i;
 }
 
 /*
-** Bind Esc to exit
+** Handle keyboard events.
+** ESC (0xff1b): exit program with cleanup.
+** Arrow keys (0xff51-54): pan view by 1/10th of range.
+** Re-renders fractal after movement.
 */
 int	key_press(int keycode, void *param)
 {
@@ -56,11 +74,14 @@ int	key_press(int keycode, void *param)
 		move(r_tenth, 0, data);
 	else if (keycode == 0xff54)
 		move(0, -i_tenth, data);
-	render(data);
+	data->render = 1;
 	return (0);
 }
 
-// TODO: This zoom function will eventually slow down to nothing. Right?
+/*
+** Bind mouse wheel scrolling to zoom.
+** Re-renders fractal after zoom.
+*/
 int	mouse_press(int button, int x, int y, void *param)
 {
 	t_data	*data;
@@ -72,6 +93,6 @@ int	mouse_press(int button, int x, int y, void *param)
 		zoom(0.95, data);
 	if (button == 5)
 		zoom(1.05, data);
-	render(data);
+	data->render = 1;
 	return (0);
 }

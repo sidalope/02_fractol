@@ -6,24 +6,26 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 23:04:33 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 23:10:29 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 02:38:44 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /*
-** Colour a pixel at x and y.
+** Colour pixel at (x, y).
 */
 static void	put_pixel(t_data *data, int x, int y, int color)
 {
 	char	*dest;
 
-	dest = data->addr + (y * data->line_len + x * (data->bpp / 8));
+	dest = data->addr + (y * data->line_len + x * data->bpp);
 	*(unsigned int *)dest = color;
 }
 
-// TODO: This could actually return a pointer to a function for speeeeed?
+/*
+** Choose and perform the fractal calculation.
+*/
 int	calculate_fractal(double cr, double ci, t_data *data)
 {
 	int		iter;
@@ -36,6 +38,9 @@ int	calculate_fractal(double cr, double ci, t_data *data)
 	return (iter);
 }
 
+/*
+** Render the fractal to the current window
+*/
 void	render(t_data *data)
 {
 	int			x;
@@ -44,23 +49,22 @@ void	render(t_data *data)
 	double		ci;
 	int			iter;
 
-	mlx_clear_window(data->mlx, data->window);
-	y = 0;
-	while (y < HEIGHT)
+	data->r_factor = (data->max_r - data->min_r) / (WIDTH - 1);
+	data->i_factor = (data->max_i - data->min_i) / (HEIGHT - 1);
+	y = -1;
+	while (++y < HEIGHT)
 	{
-		ci = data->max_i - (y * (data->max_i - data->min_i) / (HEIGHT - 1));
-		x = 0;
-		while (x < WIDTH)
+		ci = data->max_i - y * data->i_factor;
+		x = -1;
+		while (++x < WIDTH)
 		{
-			cr = data->min_r + (x * (data->max_r - data->min_r) / (WIDTH - 1));
+			cr = data->min_r + x * data->r_factor;
 			iter = calculate_fractal(cr, ci, data);
 			if (iter == MAX_ITERATIONS)
 				put_pixel(data, x, y, 0x00000000);
 			else
 				put_pixel(data, x, y, COLOUR * iter);
-			x++;
 		}
-		y++;
 	}
 	mlx_put_image_to_window(data->mlx, data->window, data->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 23:18:20 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 22:55:34 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 02:40:18 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ typedef struct s_data
 	int			line_len;
 	int			endian;
 	int			fractal;
+	double		i_factor;
+	double		r_factor;
 	double		min_r;
 	double		max_r;
 	double		min_i;
 	double		max_i;
 	double		kr;
 	double		ki;
+	int			render;
 }				t_data;
 
 enum e_fractals
@@ -46,9 +49,8 @@ enum e_fractals
 	JULIA = 2
 };
 
-// Initialisation
-void	init_clean(t_data *data);
-void	init(t_data *data, int argc, char *argv[]);
+// Utils
+double	ft_atof(char *str);
 
 // Exit and Error handling
 void	clean_up(t_data *data);
@@ -61,6 +63,10 @@ int		mouse_press(int button, int x, int y, void *param);
 
 // Rendering
 void	render(t_data *data);
+
+// Initialisation
+void	init_clean(t_data *data);
+void	init(t_data *data, int argc, char *argv[]);
 
 // Fractals
 int		mandelbrot(double cr, double ci);

@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:22:57 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/22 23:10:12 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 02:44:40 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,19 @@ void	error_out(char *err_msg, t_data *data)
 	exit(EXIT_FAILURE);
 }
 
+static int	loop_handler(void *param)
+{
+	t_data	*data;
+
+	data = (t_data *)param;
+	if (data->render)
+	{
+		render(data);
+		data->render = 0;
+	}
+	return (0);
+}
+
 // Resizing; redraw the whole window? What?
 int	main(int argc, char *argv[])
 {
@@ -78,5 +91,6 @@ int	main(int argc, char *argv[])
 	mlx_hook(data.window, 17, 1L << 17, exit_success, NULL);
 	mlx_key_hook(data.window, key_press, &data);
 	mlx_mouse_hook(data.window, mouse_press, &data);
+	mlx_loop_hook(data.mlx, loop_handler, &data);
 	mlx_loop(data.mlx);
 }
