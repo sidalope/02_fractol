@@ -6,7 +6,7 @@
 /*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 23:18:20 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 13:53:31 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/23 14:21:42 by abisani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	init(t_data *data, int argc, char *argv[]);
 
 // Fractals
 int		mandelbrot(double cr, double ci);
-int		julia(double z_r, double z_i, double kr, double ki);
+int		julia(double zr, double zi, double kr, double ki);
 
 #endif
