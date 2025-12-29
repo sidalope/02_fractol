@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: abisiani <abisiani@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 23:18:20 by abisani           #+#    #+#             */
-/*   Updated: 2025/12/23 14:21:42 by abisani          ###   ########.fr       */
+/*   Updated: 2025/12/29 16:34:09 by abisiani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define WIDTH 1200
 # define HEIGHT 900
-# define MAX_ITERATIONS 50
+# define MAX_ITERATIONS 150
 # define COLOUR 0x00F0cfff
 
 // remember line_len is in bits
