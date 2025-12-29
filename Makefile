@@ -6,7 +6,7 @@
 #    By: abisani <abisani@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 16:38:03 by abisani           #+#    #+#              #
-#    Updated: 2025/12/23 13:03:42 by abisani          ###   ########.fr        #
+#    Updated: 2025/12/29 16:29:45 by abisani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CFLAGS = -g -Wall -Werror -Wextra
 
 NAME = fractol
 LIBFT = libft/libft.a
+MINILIBX = minilibx-linux/libmlx.a
 
 SRC_DIR = src
 MAIN_FILES = main.c
@@ -34,7 +35,10 @@ all: $(NAME)
 $(LIBFT):
 	@make -C libft
 
-$(NAME): $(OBJ) $(LIBFT)
+$(MINILIBX):
+	@make -C minilibx-linux
+
+$(NAME): $(OBJ) $(LIBFT) $(MINILIBX)
 	$(CC) $(CFLAGS) $^ -Lminilibx-linux -lmlx -lXext -lX11 -lm -o $(NAME)
 
 %.o: %.c $(SRC_DIR)/fractol.h
@@ -42,10 +46,11 @@ $(NAME): $(OBJ) $(LIBFT)
 
 clean:
 	rm -f $(OBJ) $(TEST_OBJ)
-	make -C libft clean
+	@make -C libft clean
+	@make -C minilibx-linux clean
 
 fclean: clean
 	rm -f $(NAME) $(TEST_NAME)
-	make -C libft fclean
+	@make -C libft fclean
 
 re: fclean all
